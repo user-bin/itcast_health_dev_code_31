@@ -9,4 +9,13 @@
         VALUES
         (null, #{code}, #{name}, #{sex}, #{age}, #{price}, #{type}, #{attention}, #{remark})
     </insert>
+
+    <select id="findByCondition" parameterType="String" resultType="checkitem">
+        select * from t_checkitem
+        <where>
+            <if test="queryString != null and queryString.length > 0">
+                code like "%"#{queryString}"%" or name like "%"#{queryString}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
