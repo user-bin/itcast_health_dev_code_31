@@ -40,4 +40,12 @@ public class CheckItemController {
         log.debug("PageResult:"+pageResult);
         return new Result(true,MessageConst.QUERY_CHECKITEM_SUCCESS, pageResult);
     }
+
+    @RequestMapping("/delById")
+    public Result delById(Integer id){
+        log.debug("delById: {" + id +"}");
+        checkItemService.delById(id);
+        log.debug(MessageConst.DELETE_CHECKITEM_SUCCESS);
+        return new Result(true,MessageConst.DELETE_CHECKITEM_SUCCESS);
+    }
 }

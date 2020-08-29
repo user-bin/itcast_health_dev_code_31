@@ -18,4 +18,12 @@
             </if>
         </where>
     </select>
+
+    <select id="findCountById" parameterType="int" resultType="long">
+        select count(0) from t_checkgroup_checkitem where checkitem_id = #{id}
+    </select>
+
+    <delete id="delById" parameterType="int">
+        delete from t_checkitem where id = #{id}
+    </delete>
 </mapper>
