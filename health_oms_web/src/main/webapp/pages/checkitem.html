@@ -221,7 +221,8 @@
                 rules: {//校验规则
                     code: [{ required: true, message: '项目编码为必填项', trigger: 'blur' }],
                     name: [{ required: true, message: '项目名称为必填项', trigger: 'blur' }]
-                }
+                },
+                backend_url:"http://localhost:82"
             },
             //钩子函数，VUE对象初始化完成后自动执行
             created() {
@@ -230,8 +231,53 @@
                 //编辑
                 handleEdit() {
                 },
-                //添加
+                //添加功能
+                /***
+                 * 步骤：
+                 *  1. 校验数据
+                 *  2. 发送axios请求，提交表单数据
+                 *  3. 请求成功后：
+                 *      3.1 消息提示
+                 *      3.2 关闭弹窗
+                 *      3.3 重新查询
+                 */
                 handleAdd () {
+                    //this.$refs['dataAddForm']  根据ref值获取表单对象
+                    //validate() 校验表单的方法
+                    // ()=>{} 箭头函数
+                    // valid  是校验的结果， 布尔值：true/false
+                    this.$refs['dataAddForm'].validate((valid)=>{
+                        if(valid){
+                            //校验成功
+                            axios.post(this.backend_url + "/checkitem/add.do", this.formData ).then((res)=>{
+                                console.log(res);
+                                //3.1 消息提示
+                                if(res.data.flag){
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "success"
+                                    });
+                                }else{
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "error"
+                                    });
+                                }
+                                //3.2 关闭弹窗
+                                this.dialogFormVisible = false;
+                                //3.3 重新查询
+                                this.findPage();
+                            }).catch((err)=>{
+                                console.log(err);
+                            });
+
+                        }else{
+                            //校验失败， 直接结束
+                            return false;
+                        }
+                    });
+
+
                 },
                 //分页查询
                 findPage() {
