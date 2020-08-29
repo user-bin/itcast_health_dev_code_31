@@ -17,4 +17,6 @@ public interface CheckItemDao {
     long findCountById(Integer id);
 
     void delById(Integer id);
+
+    CheckItem findById(Integer id);
 }

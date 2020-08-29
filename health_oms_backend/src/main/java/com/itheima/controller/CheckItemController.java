@@ -8,6 +8,7 @@ import com.itheima.entity.Result;
 import com.itheima.pojo.CheckItem;
 import com.itheima.service.CheckItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.MethodWrapper;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +48,13 @@ public class CheckItemController {
         checkItemService.delById(id);
         log.debug(MessageConst.DELETE_CHECKITEM_SUCCESS);
         return new Result(true,MessageConst.DELETE_CHECKITEM_SUCCESS);
+    }
+
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        log.debug("findById: {" + id +"}");
+        CheckItem checkItem = checkItemService.findById(id);
+        log.debug("findById： " +  checkItem);
+        return new Result(true, MessageConst.QUERY_CHECKITEM_SUCCESS, checkItem);
     }
 }

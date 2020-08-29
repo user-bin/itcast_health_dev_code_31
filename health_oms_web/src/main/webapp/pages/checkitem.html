@@ -320,7 +320,21 @@
                     this.resetForm('dataAddForm');
                 },
                 // 弹出编辑窗口
+                /***
+                 * 1. 弹出窗口
+                 * 2. 清除数据
+                 * 3. 数据回显
+                 * @param row
+                 */
                 handleUpdate(row) {
+                    this.dialogFormVisible4Edit = true;
+                    this.resetForm('dataEditForm');
+                    axios.get(this.backend_url + "/checkitem/findById.do?id=" + row.id).then((res)=>{
+                        console.log(res);
+                        this.formData = res.data.data;
+                    }).catch((err)=>{
+                        console.log(err);
+                    });
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {

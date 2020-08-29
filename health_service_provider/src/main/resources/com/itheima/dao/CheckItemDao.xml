@@ -26,4 +26,8 @@
     <delete id="delById" parameterType="int">
         delete from t_checkitem where id = #{id}
     </delete>
+
+    <select id="findById" parameterType="int" resultType="checkitem">
+        select * from t_checkitem where id = #{id}
+    </select>
 </mapper>
