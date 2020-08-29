@@ -237,10 +237,23 @@
                 findPage() {
                 },
                 // 重置表单
-                resetForm() {
+                resetForm(formName) {
+                    //清空formData中的数据
+                    this.formData = {};
+                    //清除 错误提示信息
+                    if(this.$refs[formName] != null){
+                        this.$refs[formName].resetFields();
+                    }
                 },
                 // 弹出添加窗口
+                /**
+                 * 1.弹出窗口
+                 * 2. 清除表单的数据
+                 *
+                 */
                 handleCreate() {
+                    this.dialogFormVisible = true;
+                    this.resetForm('dataAddForm');
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
