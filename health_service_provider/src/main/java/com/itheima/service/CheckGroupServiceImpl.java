@@ -1,7 +1,11 @@
 package com.itheima.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.itheima.dao.CheckGroupDao;
+import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
 import com.itheima.pojo.CheckGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +37,15 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         if(checkGroup.getId() != null){
             setRelation(checkGroup.getId(), checkItemIds);
         }
+    }
+
+    @Override
+    public PageResult findPage(QueryPageBean queryPageBean) {
+        //开始分页
+        PageHelper.startPage(queryPageBean.getCurrentPage(), queryPageBean.getPageSize());
+        //条件查询
+        Page<CheckGroup> page = checkGroupDao.findByCondition(queryPageBean.getQueryString());
+        return new PageResult(page.getTotal(), page);
     }
 
     /**

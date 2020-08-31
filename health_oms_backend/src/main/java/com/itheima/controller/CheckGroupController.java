@@ -2,6 +2,8 @@ package com.itheima.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.MessageConst;
+import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
 import com.itheima.pojo.CheckGroup;
 import com.itheima.service.CheckGroupService;
@@ -9,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.resources.Messages_es;
 
 import java.util.Arrays;
 
@@ -52,4 +53,12 @@ public class CheckGroupController {
 //        log.debug("checkGroup:" +checkGroup);
 //        return null;
 //    }
+
+    @RequestMapping("/findPage")
+    public Result findPage(@RequestBody QueryPageBean queryPageBean){
+        log.debug("queryPageBean:" + queryPageBean);
+        PageResult pageResult = checkGroupService.findPage(queryPageBean);
+        log.debug("pageResult:" + pageResult);
+        return new Result(true,MessageConst.QUERY_CHECKGROUP_SUCCESS, pageResult);
+    }
 }

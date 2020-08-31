@@ -32,4 +32,14 @@
         INSERT INTO `t_checkgroup_checkitem` (`checkgroup_id`, `checkitem_id`) VALUES (#{param1} , #{param2})
 
     </insert>
+
+
+    <select id="findByCondition" parameterType="string" resultType="CheckGroup">
+        select * from t_checkgroup
+        <where>
+            <if test="value != null and value.length > 0">
+                code like "%"#{value}"%" or name like "%"#{value}"%" or helpCode like "%"#{value}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
