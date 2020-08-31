@@ -285,7 +285,50 @@
                 handleEdit() {
                 },
                 //添加
+                /**
+                 * 点击确定按钮之后
+                 * 1.发送axios请求, 请求参数：检查组基本信息  ， 选中的检查项的id
+                 * 2. 请求成功后，要做的事情
+                 *      2.1 消息提示
+                 *      2.2 关闭弹窗
+                 *      2.3 重新查询
+                 *
+                 *      方法一[了解]：
+                 *          传参：可以把检查组基本信息和检查项的id 封装成一个对象，作为请求体传输
+                 *          接收参数：可以使用map接收
+                 *      方法二：
+                 *          检查组基本信息作为请求体传输，  检查项id 通过路径传输
+                 *
+                 */
                 handleAdd () {
+                    //传参的方法一：
+                    //声明参数对象
+                    // var param = {
+                    //     checkGroup: this.formData,
+                    //     checkItemIds: this.checkitemIds
+                    // };
+                    //
+                    // axios.post(this.backend_url + "/checkgroup/add.do" , param).then((res)=>{
+                    //     console.log(res);
+                    // }).catch((err)=>{
+                    //     console.log(err);
+                    // });
+
+
+                    //传参的方法二：
+                    axios.post(this.backend_url + "/checkgroup/add.do?checkItemIds=" +this.checkitemIds , this.formData).then((res)=>{
+                        console.log(res);
+                        //消息提示
+                        this.$message({
+                            type:res.data.flag ? "success": "error",
+                            message: res.data.message
+                        });
+                        //关闭弹窗
+                        this.dialogFormVisible = false;
+                        this.findPage();
+                    }).catch((err)=>{
+                        console.log(err);
+                    });
                 },
                 //分页查询
                 findPage() {
@@ -300,6 +343,9 @@
                     this.checkitemIds = [];
                     //4. 滚动条回到顶端
                     // 在 对话框中 使用 v-if="dialogFormVisible" 决定标签是否加载
+
+                    // v-if:   如果为false， 则标签不加载 ， 为true时 ，重新加载（初始值为默认值）
+                    // v-show： 肯定会加载 ；如果为true，则显示 如果为false，则不显示
                 },
                 // 弹出添加窗口
                 /***

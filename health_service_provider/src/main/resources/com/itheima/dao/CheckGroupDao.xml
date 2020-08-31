@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.CheckGroupDao">
+    <!--
+        主键回显方法一：
+               selectKey标签： 回显主键的标签， 写在insert标签的内容
+               keyProperty: 主键属性名
+               keyColumn:  主键列名
+               resultType: 主键的类型
+               order: 获取主键的时机 AFTER , 在新增语句执行完成后获取[mysql]；  BEFORE：在新增语句执行完成前获取[oracle]
+                select last_insert_id(): 查询主键【mysql】
+
+       主键回显方法二：
+            useGeneratedKeys    : 是否回显主键
+            keyProperty：主键属性名
+            keyColumn: 主键列名
+    -->
+
+
+    <insert id="add" parameterType="checkGroup" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+      <!--<selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">-->
+          <!--select last_insert_id()-->
+      <!--</selectKey>-->
+        INSERT INTO `t_checkgroup`
+        (`id`, `code`, `name`, `helpCode`, `sex`, `remark`, `attention`)
+        VALUES (null, #{code}, #{name}, #{helpCode}, #{sex}, #{remark}, #{attention})
+    </insert>
+
+    <insert id="setRelation" >
+        INSERT INTO `t_checkgroup_checkitem` (`checkgroup_id`, `checkitem_id`) VALUES (#{param1} , #{param2})
+
+    </insert>
+</mapper>
