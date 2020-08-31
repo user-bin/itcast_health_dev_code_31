@@ -61,4 +61,12 @@ public class CheckGroupController {
         log.debug("pageResult:" + pageResult);
         return new Result(true,MessageConst.QUERY_CHECKGROUP_SUCCESS, pageResult);
     }
+
+    @RequestMapping("/delById")
+    public Result delById(Integer id){
+        log.debug("delById:" + id);
+        checkGroupService.delById(id);
+        log.debug(MessageConst.DELETE_CHECKGROUP_SUCCESS);
+        return new Result(true, MessageConst.DELETE_CHECKGROUP_SUCCESS);
+    }
 }

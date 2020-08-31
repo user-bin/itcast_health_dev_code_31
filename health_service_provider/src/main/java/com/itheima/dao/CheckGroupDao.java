@@ -12,4 +12,10 @@ public interface CheckGroupDao {
     void setRelation(Integer checkGroupId, Integer checkItemId);
 
     Page<CheckGroup> findByCondition(String queryString);
+
+    long findCountById(Integer id);
+
+    void delRelation(Integer id);
+
+    void delById(Integer id);
 }

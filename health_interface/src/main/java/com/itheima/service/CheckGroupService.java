@@ -12,4 +12,7 @@ public interface CheckGroupService {
     void add(CheckGroup checkGroup, Integer[] checkItemIds);
 
     PageResult findPage(QueryPageBean queryPageBean);
+
+    void delById(Integer id);
+
 }

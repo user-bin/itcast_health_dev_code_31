@@ -42,4 +42,16 @@
             </if>
         </where>
     </select>
+
+    <select id="findCountById" parameterType="int" resultType="long">
+        select count(0) from t_setmeal_checkgroup where checkgroup_id = #{id}
+    </select>
+
+    <delete id="delRelation" parameterType="int">
+        delete from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </delete>
+
+    <delete id="delById" parameterType="int" >
+        delete from t_checkgroup where id = #{id}
+    </delete>
 </mapper>
